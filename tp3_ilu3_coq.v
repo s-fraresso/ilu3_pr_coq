@@ -147,7 +147,7 @@ destruct l.
   intros l1 l2 H Hlength.
   injection H as H1 H2.
   subst l1.
-  easy.
+  discriminate.
 Qed.
 
 (* TODO
@@ -156,7 +156,20 @@ Qed.
 Lemma split_ner :
   forall l l1 l2, (l1,l2) = split l -> length l > 1 -> l2 <> [].
 Proof.
-Admitted.
+destruct l.
+- easy.
+- simpl.
+  destruct l.
+  -- simpl.
+     intros l1 l2 H Hlength.
+     lia.
+  -- simpl.
+     destruct (split l) as [ll1 ll2].
+     intros l1 l2 H Hlength.
+     injection H as H1 H2.
+     subst l2.
+     easy.
+Qed.
 
 Fixpoint merge (xs:list nat) : list nat -> list nat := 
   match xs with 
