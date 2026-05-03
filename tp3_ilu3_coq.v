@@ -111,7 +111,24 @@ Qed.
 Lemma length_split :
   forall l l1 l2, (l1,l2) = split l -> length l = length l1 + length l2.
 Proof.
-Admitted.
+induction l.
+- simpl.
+  intros l1 l2 Hsplit.
+  injection Hsplit as H1 H2.
+  subst l1 l2.
+  simpl.
+  reflexivity.
+- simpl.
+  destruct (split l) as [ll1 ll2].
+  intros l1 l2 Hsplit.
+  injection Hsplit as H1 H2.
+  subst l1 l2.
+  simpl.
+  rewrite Nat.add_comm.
+  rewrite <- IHl.
+  -- reflexivity.
+  -- reflexivity.
+Qed.
 
 (*
   TODO
