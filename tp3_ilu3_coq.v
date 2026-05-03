@@ -79,7 +79,12 @@ Fixpoint sort l :=
 *)
 Theorem sort_sorted: forall l, sorted (sort l).
 Proof.
-Admitted.
+induction l.
+- easy.
+- simpl.
+  apply insert_sorted.
+  apply IHl.
+Qed.
 
 (**************************************************************)
 
