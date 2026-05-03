@@ -42,7 +42,30 @@ Qed.
 *)
 Lemma insert_sorted: forall l, sorted l -> forall x, sorted (insert x l).
 Proof.
-Admitted.
+induction l.
+- intros _ x.
+  simpl. 
+  auto.
+- intros Hsorted x.
+  simpl in Hsorted.
+  destruct Hsorted as [Hhd Hlsorted].
+  simpl.
+  destruct (le_dec x a).
+  -- simpl.
+     split.
+     --- apply l0.
+     --- split.
+          ---- apply Hhd.
+          ---- apply Hlsorted.
+  -- simpl.
+     split.
+     --- apply sorted_le.
+         ---- apply Hlsorted.
+         ---- apply Hhd.
+         ---- lia.
+     --- apply IHl.
+         apply Hlsorted.
+Qed.
 
 Fixpoint sort l :=
   match l with
