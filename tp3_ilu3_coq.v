@@ -140,8 +140,15 @@ Qed.
 
 Lemma split_nel :
   forall l l1 l2, (l1,l2) = split l -> length l > 1 -> l1 <> [].
-Proof.
-Admitted.
+destruct l.
+- easy.
+- simpl.
+  destruct (split l) as [ll1 ll2].
+  intros l1 l2 H Hlength.
+  injection H as H1 H2.
+  subst l1.
+  easy.
+Qed.
 
 (* TODO
   mêmes consignes + utiliser lia sur de l'arithmétique
