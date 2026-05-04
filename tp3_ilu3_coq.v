@@ -192,9 +192,19 @@ Fixpoint merge (xs:list nat) : list nat -> list nat :=
 *)
 Lemma merge_sorted: forall l1 l2, sorted l1 -> sorted l2 -> sorted (merge l1 l2).
 Proof.
-  induction l1.
-  - simpl; auto.
-  - simpl; induction l2; intros; auto.
+induction l1.
+- simpl.
+  auto.
+- simpl.
+  induction l2.
+  intros.
+  auto.
+  intros H Hsorted.
+  destruct H as [H1 H2].
+  destruct (le_dec a a0).
+  -- simpl.
+     split.
+     --- simpl.
 Admitted.
 
 Require Import Recdef.
