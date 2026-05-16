@@ -254,7 +254,21 @@ Admitted.
 (* utiliser eval0, eval1, simpl0l, simpl0r, simpl1r, simpl1l *)
 Lemma simplify_preserves_eval : forall e env, eval (simplify e) env = eval e env.
 Proof.
-Admitted.
+intros.
+induction e; simpl; auto.
+- repeat rewrite eval0.
+  simpl.
+  rewrite IHe1, IHe2.
+  rewrite simpl0r.
+  rewrite simpl0l.
+  reflexivity.
+- repeat rewrite eval1.
+  simpl.
+  rewrite IHe1, IHe2.
+  rewrite simpl1r.
+  rewrite simpl1l.
+  reflexivity.
+Qed.
 
 (* TODO 0.5 pts *)
 Lemma nb_ops_le_size : forall e, nb_ops e <= size e.
